@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: first-app-v1
+  labels:
+    version: v1
+spec:
+  selector:
+    matchLabels:
+      app: first-app
+      version: v1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: first-app
+        version: v1
+    spec:
+      containers:
+        - name: first-app
+          image: cry20011/first_app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: first-app-v1
+  labels:
+    version: v1
+spec:
+  type: ClusterIP
+  ports:
+    - name: first-app-port
+      port: 8080
+      targetPort: 8080
+  selector:
+    app: first-app
+    version: v1

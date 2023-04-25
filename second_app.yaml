@@ -1,0 +1,38 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: second-app-v1
+  labels:
+    version: v1
+spec:
+  selector:
+    matchLabels:
+      app: second-app
+      version: v1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: second-app
+        version: v1
+    spec:
+      containers:
+        - name: second-app
+          image: cry20011/second_app
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: second-app-v1
+  labels:
+    version: v1
+spec:
+  type: ClusterIP
+  ports:
+    - name: second-app-port
+      port: 8081
+      targetPort: 8081
+  selector:
+    app: second-app
+    version: v1

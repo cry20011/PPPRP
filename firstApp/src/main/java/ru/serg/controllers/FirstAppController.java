@@ -14,7 +14,7 @@ public class FirstAppController {
     @GetMapping("/data")
     public String getDataFromSecondAppAndReturn() {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "http://localhost:8081/api/data";
+        String url = "http://second-app-v1:8081/api/data";
         return restTemplate.getForObject(url, String.class);
     }
 }

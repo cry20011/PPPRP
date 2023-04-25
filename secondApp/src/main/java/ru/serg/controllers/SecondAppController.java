@@ -14,7 +14,7 @@ public class SecondAppController {
     @GetMapping("/data")
     public String getDataFromSecondAppAndReturn() {
         RestTemplate restTemplate = new RestTemplate();
-        String url = "https://reqres.in/api/users/1";
+        String url = "http://httpbin.org/get";
         return restTemplate.getForObject(url, String.class);
     }
 }
