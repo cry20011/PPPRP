@@ -1,13 +1,13 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: app-virtual-service-egress
+  name: vs-for-egressgateway
 spec:
   hosts:
-  - httpbin.org
+    - "httpbin.org"
   gateways:
-  - app-egressgateway
-  - mesh
+    - app-egressgateway
+    - mesh
   http:
     - match:
         - gateways:
@@ -16,14 +16,27 @@ spec:
       route:
         - destination:
             host: istio-egressgateway.istio-system.svc.cluster.local
+            subset: httpbin
             port:
               number: 80
+          weight: 100
     - match:
         - gateways:
-          - app-egressgateway
+            - app-egressgateway
           port: 80
       route:
         - destination:
             host: httpbin.org
             port:
               number: 80
+          weight: 100
+
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: dr-for-egressgateway
+spec:
+  host: istio-egressgateway.istio-system.svc.cluster.local
+  subsets:
+    - name: httpbin

@@ -2,7 +2,7 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
-  name: app-virtual-service-ingress
+  name: vs-for-ingressgateway
 spec:
   hosts:
     - "*"
