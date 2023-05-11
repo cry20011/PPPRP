@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: second-app
-          image: cry20011/second_app
+          image: cry20011/mtls-second-app
 ---
 apiVersion: v1
 kind: Service
